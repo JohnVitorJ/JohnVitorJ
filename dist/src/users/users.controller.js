@@ -32,6 +32,30 @@ class UsersController {
             }
         });
     }
+    getById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                res.status(200).json(yield users_service_1.UsersService.getById(id));
+            }
+            catch (error) {
+                res.status(400).send(error);
+            }
+        });
+    }
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { name, email } = req.body;
+                if (!name || !email)
+                    throw "name or email not informed";
+                res.status(200).json(yield users_service_1.UsersService.create({ name, email }));
+            }
+            catch (error) {
+                res.status(400).send(error);
+            }
+        });
+    }
 }
 exports.UsersController = UsersController;
 //# sourceMappingURL=users.controller.js.map

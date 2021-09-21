@@ -8,19 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const db_seeder_1 = __importDefault(require("./src/seed/db.seeder"));
-const dbUri = `mongodb://root:1234@db:27017/dev?authSource=admin`;
-const connection = mongoose_1.default.connect(dbUri);
-connection
-    .then((db) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(`server ${db}`);
-    yield db_seeder_1.default(20);
-}))
-    .catch((err) => console.log(err));
-exports.default = connection;
-//# sourceMappingURL=database.js.map
+exports.TitlesController = void 0;
+const titles_service_1 = require("./titles.service");
+class TitlesController {
+    list(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { skip, limit, sort } = req.query;
+                res.status(200).json(yield titles_service_1.TitlesService.list({ skip, limit, sort }));
+            }
+            catch (error) {
+                res.status(400).send(error);
+            }
+        });
+    }
+}
+exports.TitlesController = TitlesController;
+//# sourceMappingURL=titles.controller.js.map

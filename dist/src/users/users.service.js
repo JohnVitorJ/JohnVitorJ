@@ -20,9 +20,28 @@ class UsersService {
     static list(queryParams) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const resp = yield users_model_1.UserModel.find({}).sort({ name: 1 });
-                console.log("resp >>", resp);
+                const resp = yield users_model_1.UserModel.find({});
                 return resp;
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    static create(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield users_model_1.UserModel.create(user);
+            }
+            catch (error) {
+                throw error;
+            }
+        });
+    }
+    static getById(_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield users_model_1.UserModel.findOne({ _id });
             }
             catch (error) {
                 throw error;
@@ -33,8 +52,6 @@ class UsersService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 faker_1.default.locale = "pt_BR";
-                console.log("+faker.finance.amount >>>");
-                console.log(faker_1.default.finance.amount);
                 for (let i = 0; i <= 20; i++) {
                     const name = faker_1.default.name.findName();
                     const user = yield users_model_1.UserModel.create({
@@ -42,11 +59,12 @@ class UsersService {
                         email: faker_1.default.internet.email(name),
                         startedAt: faker_1.default.date.past(15, 2000),
                     });
-                    console.log('user >>>>');
+                    console.log("user >>>>");
                     console.log(user);
                     yield titles_model_1.TitlesModel.create({
                         user: user._id,
                         amount: +faker_1.default.finance.amount(100, 5000, 2),
+                        expiresAt: new Date(),
                     });
                 }
                 return { ok: true };

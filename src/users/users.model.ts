@@ -11,6 +11,9 @@ export const userSchema = new Schema({
   startedAt: {
     type: Date,
   },
+  birth: {
+    type: Date,
+  },
 });
 
 export const UserModel = model<any>('Users', userSchema)

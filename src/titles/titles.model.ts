@@ -1,21 +1,21 @@
-import { model, Schema } from "mongoose";
+import {model, Schema} from "mongoose";
 
 const ObjectId = Schema.Types.ObjectId;
 
 export const titlesSchema = new Schema({
   user: {
     type: ObjectId,
-    ref: "Users"
+    ref: "Users",
   },
   label: {
-    type: String
+    type: String,
   },
-  expiresAt:{
-    type: Date
+  expiresAt: {
+    type: Date,
   },
   amount: {
     type: Number,
-  },
+  }
 });
 
 export const TitlesModel = model<any>("Titles", titlesSchema);

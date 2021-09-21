@@ -13,6 +13,9 @@ exports.userSchema = new mongoose_1.Schema({
     startedAt: {
         type: Date,
     },
+    birth: {
+        type: Date,
+    },
 });
 exports.UserModel = mongoose_1.model('Users', exports.userSchema);
 //# sourceMappingURL=users.model.js.map
