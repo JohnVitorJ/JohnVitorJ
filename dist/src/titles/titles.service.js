@@ -15,26 +15,30 @@ class TitlesService {
     static list(queryParams) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const match = {};
-                const [key, val] = queryParams.sort.split("_");
-                const sortBy = { [key]: val == "ASC" ? 1 : -1 };
+                const match = {
+                    [queryParams.search.key || 'name']: { $regex: queryParams.search.value },
+                };
                 return yield titles_model_1.TitlesModel.aggregate([
                     {
                         $match: match,
                     },
                     {
                         $lookup: {
-                            from: 'users',
+                            from: "users",
                             foreignField: "_id",
-                            localField: 'user',
-                            as: 'user'
-                        }
-                    }
+                            localField: "user",
+                            as: "user",
+                        },
+                    },
+                    {
+                        $unwind: "$user",
+                    },
                 ])
-                    .skip(queryParams.skip)
-                    .limit(queryParams.limit);
+                    .skip(+queryParams.skip || 0)
+                    .limit(+queryParams.limit || 10);
             }
             catch (error) {
+                console.log(error);
                 throw error;
             }
         });

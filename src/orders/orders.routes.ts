@@ -1,5 +1,5 @@
 import express from 'express';
-import {TitlesController} from './titles.controller'
+import {TitlesController} from './orders.controller'
 
 const Controller = new TitlesController();
 

@@ -8,13 +8,7 @@ export class UsersController {
       res.status(400).send(error);
     }
   }
-  async populateDB(req: any, res: any) {
-    try {
-      res.status(200).json(await UsersService.populateDB());
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  }
+  
   async getById(req: any, res: any) {
     try {
       const { id } = req.params;

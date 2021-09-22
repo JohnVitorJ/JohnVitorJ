@@ -22,16 +22,6 @@ class UsersController {
             }
         });
     }
-    populateDB(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                res.status(200).json(yield users_service_1.UsersService.populateDB());
-            }
-            catch (error) {
-                res.status(400).send(error);
-            }
-        });
-    }
     getById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

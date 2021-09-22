@@ -16,10 +16,7 @@ exports.titlesSchema = new mongoose_1.Schema({
     },
     amount: {
         type: Number,
-    },
-    status: {
-        enum: ['PAID', 'DEFAULTING']
-    },
+    }
 });
 exports.TitlesModel = mongoose_1.model("Titles", exports.titlesSchema);
 //# sourceMappingURL=titles.model.js.map

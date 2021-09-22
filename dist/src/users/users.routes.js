@@ -7,8 +7,7 @@ const express_1 = __importDefault(require("express"));
 const users_controller_1 = require("./users.controller");
 const Controller = new users_controller_1.UsersController();
 exports.default = express_1.default.Router()
-    .get('', Controller.list)
+    .get('/', Controller.list)
     .get('/:id', Controller.getById)
-    .post('/', Controller.create)
-    .get('/populate', Controller.populateDB);
+    .post('/', Controller.create);
 //# sourceMappingURL=users.routes.js.map

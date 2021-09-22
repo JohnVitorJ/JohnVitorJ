@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const titles_model_1 = require("../titles/titles.model");
+const orders_model_1 = require("../orders/orders.model");
 const users_model_1 = require("../users/users.model");
 const faker_1 = __importDefault(require("faker"));
 function seedDB(times) {
     return __awaiter(this, void 0, void 0, function* () {
         faker_1.default.locale = "pt_BR";
+        yield users_model_1.UserModel.deleteMany({});
         const usersDoc = Array(times)
             .fill(null)
             .map(() => {
@@ -30,17 +31,16 @@ function seedDB(times) {
             });
         });
         const users = yield Promise.all(usersDoc.map((userDoc) => userDoc.save()));
+        yield orders_model_1.OrdersModel.deleteMany({});
+        const types = ["Internet", "Streaming", "Market", "Spotify", "Energy"];
         const titlesDoc = Array(times)
             .fill(null)
             .map(() => {
-            const expiresAt = faker_1.default.date.between("2022-01-01", "2015-01-05");
-            const today = new Date();
-            return new titles_model_1.TitlesModel({
-                user: users[faker_1.default.datatype.number({ min: 0, max: times })]._id,
-                label: faker_1.default.lorem.sentence,
-                expiresAt,
-                amount: faker_1.default.finance.amount(100, 5000, 2),
-                status: expiresAt > today ? "DEFAULTING" : "PAID",
+            return new orders_model_1.OrdersModel({
+                user: users[faker_1.default.datatype.number({ min: 0, max: times - 1 })]._id,
+                type: types[faker_1.default.datatype.number({ min: 0, max: 4 })],
+                dueDate: faker_1.default.date.between("2020-05-01", "2022-05-1"),
+                amount: faker_1.default.finance.amount(100, 1000, 2),
             });
         });
         yield Promise.all(titlesDoc.map((titleDoc) => titleDoc.save()));
