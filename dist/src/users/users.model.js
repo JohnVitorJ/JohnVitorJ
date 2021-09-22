@@ -17,5 +17,5 @@ exports.userSchema = new mongoose_1.Schema({
         type: Date,
     },
 }, { versionKey: false });
-exports.UserModel = mongoose_1.model("Users", exports.userSchema);
+exports.UserModel = (0, mongoose_1.model)("Users", exports.userSchema);
 //# sourceMappingURL=users.model.js.map

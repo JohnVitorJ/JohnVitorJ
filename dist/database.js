@@ -19,7 +19,7 @@ const connection = mongoose_1.default.connect(dbUri);
 connection
     .then((db) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`server ${db}`);
-    yield db_seeder_1.default(200);
+    yield (0, db_seeder_1.default)(200);
 }))
     .catch((err) => console.log(err));
 exports.default = connection;
